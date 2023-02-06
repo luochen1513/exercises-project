@@ -1,0 +1,56 @@
+*.class
+
+.mtj.tmp/
+
+*.jar
+*.war
+*.ear
+*.zip
+
+hs_err_pid*
+
+.idea
+
+*.iml
+
+*.rar
+*.log
+.project
+.settings
+.classpath
+target
+classes
+*.DS_Store
+.gradle
+build
+out
+log
+
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.factorypath
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+*.iws
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人口普查</title>
+    <link rel="stylesheet" type="text/css" href="css/people.css">
+    <script src="js/jquery-3.3.1.min .js"></script>
+    <script src="js/echarts.min .js"></script>
+    <script src="js/echarts-map-china.js"></script>
+    <script src="js/20.js"></script>
+</head>
+
+<body>
+<div style="float: left;width: 65%;height: 590px;">
+    <div style="width: 100%;height: 400px;">
+        <div id="peoplePie"></div>
+        <div id="peopleMap"></div>
+    </div>
+    <div id="peopleTreemap">
+        <div style="float: left;">
+            <table style="text-align: center;margin-left: 10px;width: 180px;
+        height: 100px;line-height: 2;">
+                <tr style="color: dimgrey;height: 50px;">
+                    <td colspan="6">数据修改</td>
+                </tr>
+                <tr style="color: dimgrey;height: 50px;">
+                    <td>
+                        <label for="data"></label>
+                        <select id="data" style="color: dimgrey;">
+                            <option id="option">全部</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label for="number"></label>
+                        <input type="text" id="number" style="width: 60px;border: 1px solid dimgrey" disabled>
+                    </td>
+                </tr>
+                <tr style="color: dimgrey;height: 50px;">
+                    <td>
+                        <button id="update" style="width:62px;border: 1px solid dimgrey;
+                        color: dimgrey;" onclick="updateButton()">修 改</button>
+                    </td>
+                    <td>
+                        <button id="submit" style="width: 66px;border: 1px solid dimgrey;color: dimgrey;">确 定</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="float: right;margin-right: 70px;">
+            <table style="text-align: center;width: 560px;line-height: 2;">
+                <tr style="color: dimgrey;height: 50px;">
+                    <td colspan="5" style="">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;份</td>
+                    <td> </td>
+                    <td> </td>
+                    <td colspan="2" style="">排&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;序</td>
+                </tr>
+                <tr style="color: dimgrey;height: 50px;">
+                    <td style="width: 70px;" rowspan="2">
+                        <button id="2021" style="width:62px;border: 1px solid dimgrey;
+                        color: dimgrey;">2021年</button>
+                    </td>
+                    <td style="width: 70px;" rowspan="2">
+                        <button id="2020" style="width:62px;border: 1px solid dimgrey;
+                        color: dimgrey;" >2020年</button>
+                    </td>
+                    <td style="width: 70px;" rowspan="2">
+                        <button id="2019" style="width:62px;border: 1px solid dimgrey;
+                        color: dimgrey;" >2019年</button>
+                    </td>
+                    <td style="width: 70px;" rowspan="2">
+                        <button id="2018" style="width:62px;border: 1px solid dimgrey;
+                        color: dimgrey;">2018年</button>
+                    </td>
+                    <td style="width: 70px;" rowspan="2">
+                        <button id="2017" style="width:62px;border: 1px solid dimgrey;
+                        color: dimgrey;">2017年</button>
+                    </td>
+                    <td> </td>
+                    <td> </td>
+                    <td style="width: 60px;">
+                        柱状图
+                    </td>
+                    <td style="width: 100px;">
+                        <button id="downBar" style="width:20px;border: 1px solid dimgrey;color: dimgrey;" title="趋势">\</button>
+                        <button id="descBar" style="width:20px;border: 1px solid dimgrey;color: dimgrey;" title="降序">↓</button>
+                        <img src="images/reset.png" id="resetBar" title="重置">
+                    </td>
+                </tr>
+                <tr style="color: dimgrey;height: 50px;">
+                    <td> </td>
+                    <td> </td>
+                    <td>
+                        折线图
+                    </td>
+                    <td>
+                        <button id="downLine" style="width:20px;border: 1px solid dimgrey;color: dimgrey;" title="趋势">\</button>
+                        <button id="descLine" style="width:20px;border: 1px solid dimgrey;color: dimgrey;" title="降序">↓</button>
+                        <img src="images/reset.png" id="resetLine" title="重置">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div style="float: left;width: 35%;height: 590px">
+    <div id="peopleBar"></div>
+    <div id="peopleLine"></div>
+</div>
+</body>
+
+</html>

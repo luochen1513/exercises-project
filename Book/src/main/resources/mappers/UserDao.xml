@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.book.dao.UserDao">
+
+    <resultMap type="com.book.entity.User" id="UserMap">
+        <result property="userId" column="userId" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserMap">
+        select userId,
+               username,
+               password,
+               sex,
+               email,
+               phone
+        from book.user
+        where userId = #{userId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserMap">
+        select userId,
+               username,
+               password
+        from book.user
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserMap">
+        select
+        userId, username, password
+        from book.user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="userId" useGeneratedKeys="true">
+        insert into book.user(username, password)
+        values (#{username}, #{password})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="userId" useGeneratedKeys="true">
+        insert into book.user(username, password)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.username}, #{entity.password})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="userId" useGeneratedKeys="true">
+        insert into book.user(username, password)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.username}, #{entity.password})
+        </foreach>
+        on duplicate key update
+        username = values(username) , password = values(password)
+    </insert>
+    <insert id="insertAll" keyProperty="userId" useGeneratedKeys="true">
+        insert into book.user(username, password, sex, email, phone)
+        values (#{username}, #{password}, #{sex}, #{email}, #{phone})
+    </insert>
+
+    <insert id="insertHit" keyProperty="hitId" useGeneratedKeys="true">
+        insert into book.hit(userId, bookId, hit)
+        values (#{userId}, #{bookid}, #{hit})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update book.user
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            <if test="email != null and email != ''">
+                email= #{email},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+        </set>
+        where userId = #{userId}
+    </update>
+    <update id="updatePassword">
+        update book.user
+        <set>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+        </set>
+        where username=#{username}
+    </update>
+
+    <update id="updateHit">
+        update book.hit
+        set hit=#{hit}
+        where userId = #{userId}
+          and bookId = #{bookId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from book.user
+        where userId = #{id}
+    </delete>
+
+    <resultMap type="com.book.dto.responseDto.LoginResponseDto" id="UserInfoMap">
+        <result property="userId" column="userId" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getUserInfoByUsernameAndPassword" resultMap="UserInfoMap">
+        select userId, username, password, sex, email, phone
+        from book.user
+        where username = #{username}
+          and password = #{password}
+    </select>
+    <select id="queryByUsername" resultType="com.book.entity.User">
+        select userId, username, password, sex, email, phone
+        from book.user
+        where username = #{username}
+    </select>
+    <select id="queryPageList" resultType="com.book.entity.User">
+        select userId, username, password, sex, email, phone
+        from book.user ${ew.customSqlSegment}
+    </select>
+    <select id="queryByEmail" resultType="com.book.entity.User">
+        select userId, username, password, sex, email, phone
+        from book.user
+        where email = #{email}
+    </select>
+    <select id="queryByPhone" resultType="com.book.entity.User">
+        select userId, username, password, sex, email, phone
+        from book.user
+        where phone = #{phone}
+    </select>
+
+</mapper>
+

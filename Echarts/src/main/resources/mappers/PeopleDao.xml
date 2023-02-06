@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.echarts.dao.PeopleDao">
+
+    <resultMap type="com.echarts.entity.People" id="PeopleMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="province" column="province" jdbcType="VARCHAR"/>
+        <result property="number" column="number" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="queryAll" resultMap="PeopleMap">
+        select id, province, number
+        from echarts.people
+        where year = #{year}
+    </select>
+
+    <select id="queryAllBySort" resultType="com.echarts.entity.People">
+        select id, province, number
+        from echarts.people
+        where year = #{year}
+        order by number desc
+    </select>
+    <select id="queryChinaNumber" resultType="java.lang.Integer">
+        select sum(number)
+        from echarts.people
+        where year = 2017
+        union
+        select sum(number)
+        from echarts.people
+        where year = 2018
+        union
+        select sum(number)
+        from echarts.people
+        where year = 2019
+        union
+        select sum(number)
+        from echarts.people
+        where year = 2020
+        union
+        select sum(number)
+        from echarts.people
+        where year = 2021
+    </select>
+    <select id="queryYearNumber" resultType="java.lang.Integer">
+        select sum(number)
+        from echarts.people
+        where year = #{year}
+    </select>
+
+    <update id="update">
+        update echarts.people
+        set number = #{number}
+        where year = #{year}
+          and province = #{province}
+    </update>
+
+</mapper>
+

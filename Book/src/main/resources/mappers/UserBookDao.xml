@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.book.dao.UserBookDao">
+
+    <resultMap id="UserBookMap" type="com.book.entity.UserBook">
+        <id property="id" column="id" javaType="INTEGER"/>
+        <result property="userId" column="userId" javaType="INTEGER"/>
+        <result property="bookId" column="bookId" javaType="INTEGER"/>
+    </resultMap>
+
+    <insert id="userBookInsert" keyProperty="id" useGeneratedKeys="true">
+        insert into book.user_book(userId, bookId)
+        values (#{userId}, #{bookId})
+    </insert>
+
+    <update id="alterTableBook">
+        alter table book.book
+            add col#{column} varchar(200)
+    </update>
+
+    <update id="updateBookColumn">
+        update book.book
+        set #{column}=#{userId}
+        where bookId = #{bookId}
+    </update>
+
+
+    <delete id="deleteByBookId">
+        delete
+        from book.user_book
+        where bookId = #{bookId}
+    </delete>
+
+    <select id="query" resultType="com.book.entity.UserBook">
+        select id, userId, bookId
+        from book.user_book
+        where userId = #{userId}
+          and bookId = #{bookId}
+    </select>
+
+    <select id="queryUserBookListByUserId" resultType="com.book.entity.UserBook">
+        select id, userId, bookId
+        from book.user_book
+        where userId = #{userId} ${ew.customSqlSegment}
+    </select>
+
+    <select id="queryUserBookListByUserIdIpage" resultType="com.book.entity.Book">
+        select book_test.bookId, name, score, price, publish, url
+        from book.book_test,
+             book.user_book ${ew.customSqlSegment}
+    </select>
+
+    <select id="queryBookTestIdByBookInfo" resultType="java.lang.Integer">
+        select bookId
+        from book.book_test
+        where name = #{name}
+          and score = #{score}
+          and price = #{price}
+          and publish = #{publish}
+          and url = #{url}
+    </select>
+
+    <select id="queryBookTestByBookId" resultType="com.book.entity.Book">
+        select bookId, name, score, price, publish, url
+        from book.book_test
+        where bookId = #{bookId}
+    </select>
+
+</mapper>
